@@ -26,6 +26,7 @@
             overflow-x: hidden;
         }
 
+        /* --- NEW BANNER STYLES --- */
         .top-banner {
             width: 100%;
             background-color: #111;
@@ -39,6 +40,7 @@
             font-size: 1.8em;
             letter-spacing: 0.25em;
             text-transform: uppercase;
+            line-height: 1.2;
         }
 
         .top-banner .h1-roster {
@@ -119,16 +121,16 @@
             font-size: 0.95em;
             font-weight: 600;
             border: none;
-            background: #e2e8f0;
+            background: #ffffff;
             color: #475569;
             cursor: pointer;
             border-radius: 8px;
             transition: background-color 0.2s ease, transform 0.1s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .dark-toggle-btn:hover, .about-button:hover {
-            background-color: #cbd5e1;
+            background-color: #f0f4f8;
             transform: translateY(-1px);
         }
 
@@ -140,7 +142,7 @@
         .container {
             max-width: 1000px;
             width: 100%;
-            margin: 0 auto;
+            margin: 1rem auto 0; /* Adjusted margin */
             padding: 2em 20px;
             background: #ffffff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -155,7 +157,7 @@
             display: block;
             font-family: monospace;
             padding: 1.2em;
-            padding-right: 50px; /* Space for the icon */
+            padding-right: 50px;
             border: 1px solid #cbd5e1;
             border-radius: 8px;
             resize: vertical;
@@ -527,14 +529,15 @@
             background: linear-gradient(to bottom right, #1e293b, #0f172a);
             color: #e2e8f0;
         }
-
-        body.dark-mode .dark-toggle-btn, body.dark-mode .about-button {
+        
+        body.dark-mode .top-controls .dark-toggle-btn,
+        body.dark-mode .top-controls .about-button {
             background: #334155;
             color: #e2e8f0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
-        body.dark-mode .dark-toggle-btn:hover, body.dark-mode .about-button:hover {
+        
+        body.dark-mode .top-controls .dark-toggle-btn:hover,
+        body.dark-mode .top-controls .about-button:hover {
             background-color: #475569;
         }
 
@@ -670,7 +673,7 @@
             }
             .top-controls {
                 position: absolute;
-                top: 10px; /* Adjusted for smaller screens */
+                top: 10px;
                 right: 10px;
             }
             .top-controls.left {
@@ -765,14 +768,43 @@
     </footer>
 
     <div id="breachInfoModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="hideBreachInfoModal()">&times;</button>
+            <h4>Roster Rule Check Info (Beta)</h4>
+            <p>This tool provides general guidance and has not been tested on a wide audience and may contain inaccuracies. Always refer to the official EA document and your company's rostering policy for definitive interpretation. This tool flags potential deviations from standard roster rules; some may be permissible if mutually agreed.</p>
+            <p>The tool currently checks for the following potential roster deviations:</p>
+            <ul>
+                <li><strong>Early Starts</strong> [EA 14.8]: More than 3 consecutive starts before 06:00.</li>
+                <li><strong>Early Starts (7-Day)</strong> [EA 14.8]: More than 3 early starts in any 7-day period.</li>
+                <li><strong>Minimum RDOs</strong> [EA 14.11]: Fewer than 8 Rostered Days Off in a 28-day roster period (pro-rata for leave).</li>
+                <li><strong>Weekend Off</strong> [EA 14.16]: No full Saturday/Sunday RDO block in a 28-day roster period.</li>
+                <li><strong>Consecutive Duty Tours</strong> [EA 14.15]: Two tours of 6+ days not separated by at least 2 days off.</li>
+                <li><strong>Sign-on/off Around Leave</strong> [EA 14.17]: Sign-off after 14:00 before, or sign-on before 12:00 after, a leave block of 7+ days.</li>
+                <li><strong>Maximum Nights Away</strong> [EA 14.54]: Trips with more than 5 consecutive nights away from Home Base.</li>
+                <li><strong>Training After Leave</strong> [EA 14.47]: Training/checking duties within 10 days of returning from 15+ days of leave.</li>
+                <li><strong>Rest Before Standby</strong> [EA 14.50]: Less than 12 hours rest between a duty's sign-off and the start of a Standby.</li>
+                <li><strong>Rest Periods (Home Base)</strong> [EA 14.48]: Less than 12 hours rest between duties at Home Base.</li>
+                <li><strong>Short Rest Periods (Info)</strong>: Less than 12 hours rest between duties away from Home Base.</li>
+            </ul>
+            <p>
+                The tool <strong>does NOT</strong> currently check for many other complex rules (e.g., FDP limits, specific buffer periods, etc.).
+            </p>
         </div>
+    </div>
 
     <div id="aboutInfoModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <button class="modal-close-button" onclick="hideAboutInfoModal()">&times;</button>
+            <h4>About This Tool (Beta)</h4>
+            <p>This tool was developed independently to assist with interpreting roster patterns and enhancing awareness of industrial agreement provisions.</p>
+            <p>It is not affiliated with any employer or industrial body and is intended solely for informational and educational use.</p>
+            <p>It is not a substitute for professional industrial advice. All rules are based on a specific interpretation and may contain errors.</p>
         </div>
+    </div>
     
     <script>
         // All your JavaScript functions go here
-        // (toggleDarkMode, parseRosterData, checkForBreaches, etc.)
+        // (This is a placeholder, the full script should be included)
     </script>
 </body>
 </html>
