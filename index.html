@@ -14,17 +14,18 @@
             padding: 0;
         }
 
+        /* --- Key Structural Body Style --- */
         body {
             font-family: 'Inter', sans-serif;
-            margin: 0; /* Remove default body margin */
-            background: linear-gradient(to bottom right, #f0f4f8, #e0e7ee); /* Soft gradient background */
-            color: #334155; /* Darker text for readability */
+            margin: 0;
+            background: linear-gradient(to bottom right, #f0f4f8, #e0e7ee);
+            color: #334155;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px; /* Add overall padding to the body */
             overflow-x: hidden;
+            /* NOTE: The main body padding is removed to allow the banner to be full-width */
         }
 
         /* Scrollbar Styling */
@@ -42,12 +43,41 @@
             background: #94a3b8;
         }
 
+        /* --- Full-Width Top Banner --- */
+        .top-banner {
+            width: 100%;
+            background-color: #111;
+            padding: 0.8em 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.25);
+            z-index: 100;
+        }
 
+        .top-banner h1 {
+            font-size: 1.8em;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .top-banner .h1-roster {
+            font-weight: 400;
+            color: #999;
+        }
+
+        .top-banner .h1-guard {
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        /* --- Main Header (Logo & Tagline) --- */
         header {
             width: 100%;
             max-width: 1000px;
             text-align: center;
-            margin-bottom: 20px;
+            margin: 2rem auto 0;
+            padding: 0 20px;
         }
 
         .logo {
@@ -55,11 +85,11 @@
         }
 
         .logo img {
-            max-width: 200px; /* Slightly larger logo */
+            max-width: 200px;
             height: auto;
             margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* More pronounced shadow */
-            border-radius: 8px; /* Rounded corners for the logo */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-radius: 8px;
         }
 
         h1 {
@@ -76,18 +106,20 @@
         }
 
         hr.divider {
-            max-width: 250px; /* Slightly wider divider */
-            margin: 20px auto 30px auto; /* More vertical space */
+            max-width: 250px;
+            margin: 20px auto 30px auto;
             border: 0;
-            border-top: 2px solid #cbd5e1; /* Thicker, softer divider */
+            border-top: 2px solid #cbd5e1;
         }
 
+        /* --- Corner Buttons (About/Dark Mode) --- */
         .top-controls {
             position: absolute;
-            top: 20px;
+            top: 15px;
             right: 20px;
-            display: flex; /* Make it a flex container */
-            gap: 10px; /* Space between buttons */
+            display: flex;
+            gap: 10px;
+            z-index: 110; /* Ensures buttons are on top of the banner */
         }
         
         .top-controls.left { /* New class for left alignment */
@@ -96,12 +128,12 @@
         }
 
         .dark-toggle-btn, .about-button {
+            background: #ffffff; /* Made white for visibility on banner */
+            color: #475569;
             padding: 0.7em 1.4em; /* Slightly more padding */
             font-size: 0.95em;
             font-weight: 600;
             border: none; /* No border for a cleaner look */
-            background: #e2e8f0; /* Light gray background */
-            color: #475569;
             cursor: pointer;
             border-radius: 8px; /* More rounded corners */
             transition: background-color 0.2s ease, transform 0.1s ease;
@@ -118,12 +150,13 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* Inset shadow for active state */
         }
 
+        /* --- Main Content Container Centering --- */
         .container {
             max-width: 1000px;
-            width: 100%; /* Ensure it takes full width within its max-width */
-            margin: auto;
+            width: 100%;
+            margin: 1rem auto 0;
             background: #ffffff;
-            padding: 2em; /* Increased padding */
+            padding: 2em 20px; /* Adjusted padding */
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* More prominent, soft shadow */
             border-radius: 12px; /* More rounded corners */
             border: 1px solid #e2e8f0; /* Subtle border */
@@ -736,11 +769,14 @@
 </script>
 </head>
 <body>
+    <div class="top-banner">
+        <h1><span class="h1-roster">ROSTER</span><span class="h1-guard">GUARD</span></h1>
+    </div>
+
     <header>
         <div class="logo">
-            <img src="E190 roster1.png" alt="Alliance Airlines Logo">
+            <img src="RosterGuardlogo.png" alt="RosterGuard Logo">
         </div>
-        <h1>RosterGuard - Advanced Roster Management</h1>
         <p class="tagline">Independent Roster Analysis for Compliance & Calendar Sync.</p>
         <hr class="divider">
     </header>
@@ -1066,7 +1102,7 @@
 
         function isRDO(entry) {
              const dutyTypeUpper = entry.dutyType.toUpperCase();
-             return dutyTypeUpper.includes('RDO') || dutyTypeUpper.includes('SDO');
+               return dutyTypeUpper.includes('RDO') || dutyTypeUpper.includes('SDO');
         }
 
         /**
@@ -1101,9 +1137,9 @@
 
             const breachList = document.getElementById('breachList');
             breachList.innerHTML = '';
-            const flagsFound = [];   
+            const flagsFound = [];    
 
-            function addFlag(message, isInfo = false) {   
+            function addFlag(message, isInfo = false) {    
                 flagsFound.push(message);
                 const li = document.createElement('li');
                 li.textContent = message;
@@ -1261,16 +1297,16 @@
                         let dutyAfterIndex = leaveBlockEndIndex + 1;
                         while(dutyAfterIndex < roster.length) {
                              const subsequentEntry = roster[dutyAfterIndex];
-                             if (isDayOfDuty(subsequentEntry)) {
-                                  if (!isNaN(parseTime(subsequentEntry.briefTime)) && parseTime(subsequentEntry.briefTime) < parseTime('12:00')) {
-                                       addFlag(`Leave Buffer Flag [EA 14.17]: Sign-on on ${subsequentEntry.dateString} (${subsequentEntry.briefTime}) is before 12:00 after an RDO/Leave block. (Unless agreed).`);
-                                  }
-                                  break;
-                             } else if (isRDO(subsequentEntry)) {
-                                  dutyAfterIndex++; // It's an RDO, keep looking forwards
-                             } else {
-                                  break; // It's something else, stop searching
-                             }
+                               if (isDayOfDuty(subsequentEntry)) {
+                                     if (!isNaN(parseTime(subsequentEntry.briefTime)) && parseTime(subsequentEntry.briefTime) < parseTime('12:00')) {
+                                           addFlag(`Leave Buffer Flag [EA 14.17]: Sign-on on ${subsequentEntry.dateString} (${subsequentEntry.briefTime}) is before 12:00 after an RDO/Leave block. (Unless agreed).`);
+                                     }
+                                     break;
+                               } else if (isRDO(subsequentEntry)) {
+                                     dutyAfterIndex++; // It's an RDO, keep looking forwards
+                               } else {
+                                     break; // It's something else, stop searching
+                               }
                         }
                     }
 
@@ -1278,8 +1314,8 @@
                     if (leaveDuration > 14) {
                         for (let j = leaveBlockEndIndex + 1; j < leaveBlockEndIndex + 11 && j < roster.length; j++) {
                              if (roster[j].dutyType.toUpperCase().includes('TRG')) {
-                                 addFlag(`Training After Leave Flag [EA 14.47]: Training on ${roster[j].dateString} is within 10 days of returning from a ${leaveDuration}-day leave block.`);
-                                 break;
+                                  addFlag(`Training After Leave Flag [EA 14.47]: Training on ${roster[j].dateString} is within 10 days of returning from a ${leaveDuration}-day leave block.`);
+                                  break;
                              }
                         }
                     }
@@ -1317,7 +1353,7 @@
                     if (!isNaN(debriefTime)) {
                         const restInMinutes = (1440 - debriefTime) + ((currentEntry.date - prevEntry.date) / (1000 * 60) - 1440);
                          if (restInMinutes < HOME_BASE_MIN_REST_MINUTES) {
-                             addFlag(`Rest Before Standby Flag [EA 14.50]: Only ${formatMinutesToHHMM(restInMinutes)} rest between duty on ${prevEntry.dateString} and Standby on ${currentEntry.dateString}. (Min 12 hrs req'd).`);
+                              addFlag(`Rest Before Standby Flag [EA 14.50]: Only ${formatMinutesToHHMM(restInMinutes)} rest between duty on ${prevEntry.dateString} and Standby on ${currentEntry.dateString}. (Min 12 hrs req'd).`);
                         }
                     }
                 }
@@ -1355,7 +1391,7 @@
 
         // Functions for the modals
         function showBreachInfoModal() {
-            breachInfoModal.style.display = 'flex';   
+            breachInfoModal.style.display = 'flex';    
         }
 
         function hideBreachInfoModal() {
