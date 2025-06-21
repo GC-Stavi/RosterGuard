@@ -567,7 +567,6 @@
             color: #e2e8f0;
         }
         
-        /* NEW RULE FOR LOGO INVERSION */
         body.dark-mode .logo img {
             filter: invert(1);
         }
@@ -1352,13 +1351,28 @@
                 const prevEntry = roster[i];
                 const currentEntry = roster[i + 1];
 
-                // Rest Before Standby Check [EA 14.50]
-                if (currentEntry.dutyType.toUpperCase().includes('SBY') && prevEntry.isActualDuty) {
-                    const debriefTime = parseTime(prevEntry.debriefTime);
-                    if (!isNaN(debriefTime)) {
-                        const restInMinutes = (1440 - debriefTime) + ((currentEntry.date - prevEntry.date) / (1000 * 60) - 1440);
-                         if (restInMinutes < HOME_BASE_MIN_REST_MINUTES) {
-                              addFlag(`Rest Before Standby Flag [EA 14.50]: Only ${formatMinutesToHHMM(restInMinutes)} rest between duty on ${prevEntry.dateString} and Standby on ${currentEntry.dateString}. (Min 12 hrs req'd).`);
+                // --- CORRECTED Rest Before Standby Check [EA 14.50] ---
+                if (currentEntry.dutyType.toUpperCase().startsWith('SBY') && prevEntry.isActualDuty) {
+                    const prevDebriefTime = parseTime(prevEntry.debriefTime);
+                    
+                    // Regex to find the first time string (the start time) in the details
+                    const standbyTimeMatch = currentEntry.details.match(/(\d{2}:\d{2})/);
+
+                    if (!isNaN(prevDebriefTime) && standbyTimeMatch) {
+                        const standbyStartTimeStr = standbyTimeMatch[1];
+                        const standbyStartTime = parseTime(standbyStartTimeStr);
+
+                        // Create full Date objects for accurate difference calculation
+                        const prevDebriefDate = new Date(prevEntry.date);
+                        prevDebriefDate.setHours(Math.floor(prevDebriefTime / 60), prevDebriefTime % 60, 0, 0);
+
+                        const standbyStartDate = new Date(currentEntry.date);
+                        standbyStartDate.setHours(Math.floor(standbyStartTime / 60), standbyStartTime % 60, 0, 0);
+
+                        const restInMinutes = Math.round((standbyStartDate - prevDebriefDate) / (1000 * 60));
+
+                        if (restInMinutes < HOME_BASE_MIN_REST_MINUTES) {
+                            addFlag(`Rest Before Standby Flag [EA 14.50]: Only ${formatMinutesToHHMM(restInMinutes)} rest between duty on ${prevEntry.dateString} and Standby on ${currentEntry.dateString}. (Min 12 hrs req'd).`);
                         }
                     }
                 }
