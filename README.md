@@ -1,0 +1,23 @@
+# RosterGuard / RosterCheck
+
+Independent roster analysis and EBA compliance checker for Alliance Airlines crew.
+
+## What it does
+- Checks pilot and cabin crew rosters against Enterprise Agreement provisions
+- Flags potential rule deviations: early starts, minimum RDOs, consecutive duty limits, rest periods
+- Exports roster to calendar (ICS format)
+- Used by 1,000+ crew members at Alliance Airlines
+
+## Background
+Built by Craig Abela, an E190 Line Captain at Alliance Airlines with 31 years of aviation experience.  
+Developed independently to give crew an accessible, plain-language tool for understanding their EA entitlements.
+
+## Tech stack
+HTML / JavaScript — browser-based, no install required
+
+## Live tool
+https://rostercheck.netlify.app
+
+## Note
+This tool is not affiliated with Alliance Airlines or any union body.  
+It provides general guidance only. Always refer to your official EA document for definitive interpretation.
