@@ -19,7 +19,7 @@ HTML / JavaScript — browser-based, no install required
 https://rostercheck.netlify.app
 
 ## Project status
-The original pay calculation tool (PremiumRosterCheck) has been sidelined due to privacy considerations — roster data contains sensitive personal information and the tool required server-side processing. The core compliance checker (RosterCheck) remains fully functional and is actively maintained. All roster analysis runs entirely in the browser; no data is ever transmitted or stored.
+PremiumRosterCheck (the pay calculation tool) is currently in private mode while privacy and data handling are being reviewed — roster data is sensitive and the tool deserves the right level of care before wider release. The core compliance checker (RosterCheck) remains fully functional and is actively maintained. All roster analysis runs entirely in the browser; no data is ever transmitted or stored.
 
 ## Note
 This tool is not affiliated with Alliance Airlines or any union body.  
